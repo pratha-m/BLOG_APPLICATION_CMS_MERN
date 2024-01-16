@@ -18,8 +18,10 @@ const createUser=async(req,res,next)=>{
             httpOnly:false,
             secure:true,
             path:"/",
+            domain:"blogii.netlify.app",
             withCredentials:true,
-            maxAge:3*24*60*60*1000
+            maxAge:3*24*60*60*1000,
+            sameSite: 'None'
         })
         res.status(200).send({success:true,message:"User created",user:user})
     }
@@ -45,8 +47,10 @@ const loginUser=async(req,res,next)=>{
             httpOnly:false,
             secure:true,
             path:"/",
+            domain:"blogii.netlify.app",
             withCredentials:true,
-            maxAge:3*24*60*60*1000
+            maxAge:3*24*60*60*1000,
+            sameSite: 'None'
         })
     
         res.status(200).send({success:true,message:"Logged in",user:{name:user.name,email:user.email,_id:user._id}});
