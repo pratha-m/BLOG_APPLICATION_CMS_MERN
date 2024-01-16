@@ -29,7 +29,7 @@ function App() {
     async function fetchUserData(){
       try{
         setUserStatus({...userStatus,isFetching:true});
-        const result=await axios.get("http://localhost:3001/api/v1/user/profile",{withCredentials:true});
+        const result=await axios.get(`${import.meta.env.VITE_BASE_URL}/api/v1/user/profile`,{withCredentials:true});
         if(result.status===200){
           const {isAdmin,email,name}=result.data.user;
           setUserData({name:name,email:email});
@@ -76,6 +76,7 @@ function App() {
       toastId:"abc"
       });
   }
+  
 
   return (
     <div>

@@ -11,7 +11,7 @@ const EmailForm=({setRenderForms,setUserId,setUserEmail,setTopBarProgress,succes
       if(email){
         try{
           setTopBarProgress(50);
-          const result=await axios.post("http://localhost:3001/api/v1/user/sendemail",{email});
+          const result=await axios.post(`${import.meta.env.VITE_BASE_URL}/api/v1/user/sendemail`,{email});
           if(result.status===200){
              const {email,_id}=result.data.user;
              successToast(`Email Sent To ${email}`)

@@ -18,7 +18,7 @@ const Profile = ({userData,setTopBarProgress,successToast,errorToast}) => {
         try{
             setTopBarProgress(50);
             setBlogsData({...blogsData,isLoading:true})
-            const result=await axios.post("http://localhost:3001/api/v1/post/create",{
+            const result=await axios.post(`${import.meta.env.VITE_BASE_URL}/api/v1/post/create`,{
                 blog_title:blogTitle,
                 blog_description:blogDescription,
                 blog_image_url:blogImgUrl,
@@ -54,7 +54,7 @@ const Profile = ({userData,setTopBarProgress,successToast,errorToast}) => {
     const fetchUserBlogs=useCallback(async()=>{
         try{
             setBlogsData((prev)=>({...prev,isLoading:true}))
-            const result=await axios.post("http://localhost:3001/api/v1/post/each",{},{withCredentials:true});
+            const result=await axios.post(`${import.meta.env.VITE_BASE_URL}/api/v1/post/each`,{},{withCredentials:true});
             if(result.status==200){
                 setBlogsData({isLoading:false,blogs:result.data.blogs})
             }   
@@ -72,7 +72,7 @@ const Profile = ({userData,setTopBarProgress,successToast,errorToast}) => {
     const fetchAllBlogs=useCallback(async()=>{
         try{
             setBlogCategories((prev)=>({...prev,isLoading:true}))
-            const result=await axios.post("http://localhost:3001/api/v1/post/all",{});
+            const result=await axios.post(`${import.meta.env.VITE_BASE_URL}/api/v1/post/all`,{});
             if(result.status==200){
                 setBlogCategories({isLoading:false,categories:result.data.blog_categories});
             }   
@@ -95,7 +95,7 @@ const Profile = ({userData,setTopBarProgress,successToast,errorToast}) => {
   const deleteBlog=async(blogId)=>{
     try{
       setBlogsData({...blogsData,isLoading:true})
-      const result=await axios.post("http://localhost:3001/api/v1/post/delete",{blogId},{withCredentials:true});
+      const result=await axios.post(`${import.meta.env.VITE_BASE_URL}/api/v1/post/delete`,{blogId},{withCredentials:true});
       if(result.status==200) setBlogsData({isLoading:false,blogs:result.data.blogs})
     }
     catch(error){

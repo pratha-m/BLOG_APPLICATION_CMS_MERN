@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import "../css/pages/home.css";
 import Blogs from "./blogPage/Blogs";
 import axios from "axios";
-import TextSlider from "../components/textSlider/TextSlider";
+// import TextSlider from "../components/textSlider/TextSlider";
 
 const Home = () => {
    const [blogsData,setBlogsData]=useState({
@@ -15,7 +15,7 @@ const Home = () => {
   const fetchBlogs=async()=>{
     try{
         setBlogsData({...blogsData,isLoading:true})
-        const result=await axios.post("http://localhost:3001/api/v1/post/all",{});
+        const result=await axios.post(`${import.meta.env.VITE_BASE_URL}/api/v1/post/all`,{});
         if(result.status==200){
             setBlogsData({isLoading:false,blogs:result.data.blogs,categories:result.data.blog_categories})
         }   

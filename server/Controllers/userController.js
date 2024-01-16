@@ -24,7 +24,7 @@ const createUser=async(req,res,next)=>{
         res.status(200).send({success:true,message:"User created",user:user})
     }
     catch(error){
-        res.status(500).send({success:false,message:error.message});
+        res.status(500).send({success:false,message:error.message,error:error.message});
     }
 }
 const loginUser=async(req,res,next)=>{
@@ -52,7 +52,7 @@ const loginUser=async(req,res,next)=>{
         res.status(200).send({success:true,message:"Logged in",user:{name:user.name,email:user.email,_id:user._id}});
     }
     catch(error){
-        res.status(500).send({success:false,message:error.message});
+        res.status(500).send({success:false,message:error.message,error:error.message});
     }
 }
 const getUserProfile=async(req,res)=>{
@@ -67,7 +67,7 @@ const getUserProfile=async(req,res)=>{
         res.status(200).send({success:true,message:"Cookie Found",user:user})
     }
     catch(error){
-        res.status(500).send({success:false,message:error.message});
+        res.status(500).send({success:false,message:error.message,error:error.message});
     }
 }
 const updateUserProfile=async(req,res)=>{
@@ -96,7 +96,7 @@ const updateUserProfile=async(req,res)=>{
         }});
     }
     catch(error){
-        res.status(500).send({success:false,message:error.message});
+        res.status(500).send({success:false,message:error.message,error:error.message});
     }
 }
 const userExists=async(req,res)=>{
@@ -110,7 +110,7 @@ const userExists=async(req,res)=>{
         res.status(200).send({success:true,message:"User Exists",user:user})
     }
     catch(error){
-        return res.status(500).send({success:false,message:error.message})
+        return res.status(500).send({success:false,message:error.message,error:error.message})
     }
 }
 const checkOtp=async(req,res,next)=>{
@@ -126,7 +126,7 @@ const checkOtp=async(req,res,next)=>{
         res.status(200).send({success:true,message:"Otp is correct"});
     }
     catch(error){
-        res.status(500).send({success:false,message:error.message});   
+        res.status(500).send({success:false,message:error.message,error:error.message});   
     }
 }
 const changePassword=async(req,res,next)=>{
@@ -144,7 +144,7 @@ const changePassword=async(req,res,next)=>{
         res.status(200).send({success:true,message:"Password Changed Successfully"});
     }
     catch(error){
-        res.status(500).send({success:true,message:"Error in changing Password"});
+        res.status(500).send({success:true,message:"Error in changing Password",error:error.message});
     }
 }
 export {createUser,loginUser,getUserProfile,updateUserProfile,checkOtp,changePassword,userExists};

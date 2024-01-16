@@ -15,6 +15,7 @@ const Header = ({userStatus,setUserStatus,userData,runUseEffNo,setRunUseEff}) =>
     document.cookie="BLOG_USER_TOKEN=;expires=Thu,01 Jan 1970 00:00:00 UTC; path=/;";
     setUserStatus({...userStatus,isLoggedIn:false})
     setRunUseEff(runUseEffNo+1);
+    navigate("/");
   }
   const toggleDropdown=()=>{
      let userDropdown=document.getElementById("userDropdown");

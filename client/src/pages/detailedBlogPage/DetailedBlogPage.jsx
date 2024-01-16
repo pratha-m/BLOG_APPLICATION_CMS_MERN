@@ -2,7 +2,7 @@ import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
 import {useLocation, useNavigate} from "react-router-dom";
 import "./DetailedBlogPage.css";
-import TextSlider from "../../components/textSlider/TextSlider";
+// import TextSlider from "../../components/textSlider/TextSlider";
 
 const DetailedBlogPage=()=>{
   const [eachBlog,setEachBlog]=useState({isLoading:true,blog:{}});  
@@ -15,7 +15,7 @@ const DetailedBlogPage=()=>{
   const getEachBlog=useCallback(async()=>{
     try{
         setEachBlog((prev)=>({...prev,isLoading:true}))
-        const result=await axios.post("http://localhost:3001/api/v1/post/get/each",{blogId},{withCredentials:true});
+        const result=await axios.post(`${import.meta.env.VITE_BASE_URL}/api/v1/post/get/each`,{blogId},{withCredentials:true});
         if(result.status==200){
             setEachBlog({isLoading:false,blog:result.data.blog})
         }   

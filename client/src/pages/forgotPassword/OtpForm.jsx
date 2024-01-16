@@ -10,7 +10,7 @@ const OtpForm = ({setRenderForms,userId,userEmail,setTopBarProgress,successToast
      if(otp){
        try{
         setTopBarProgress(50);
-        const result=await axios.post("http://localhost:3001/api/v1/user/checkotp",{otp,userId});
+        const result=await axios.post(`${import.meta.env.VITE_BASE_URL}/api/v1/user/checkotp`,{otp,userId});
         if(result.status===200){
            setTopBarProgress(100)
            setRenderForms({isEmailForm:false,isOtpForm:false,isChangePassForm:true});
@@ -34,7 +34,7 @@ const OtpForm = ({setRenderForms,userId,userEmail,setTopBarProgress,successToast
   const resendOtp=async()=>{
     try{
       setTopBarProgress(50)
-      const result=await axios.post("http://localhost:3001/api/v1/user/sendemail",{email:userEmail});
+      const result=await axios.post(`${import.meta.env.VITE_BASE_URL}/api/v1/user/sendemail`,{email:userEmail});
       if(result.status===200){
         successToast(`Email Sent To ${userEmail}`)
         setTopBarProgress(100)

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useState } from 'react'
+import  { useState } from 'react'
 import {Link, useNavigate} from "react-router-dom";
 
 const ChangePassword = ({setRenderForms,userId,userEmail,setTopBarProgress,successToast,errorToast}) => {
@@ -13,7 +13,7 @@ const ChangePassword = ({setRenderForms,userId,userEmail,setTopBarProgress,succe
          if(password===confirmPassword){
           try{
             setTopBarProgress(50);
-            const result=await axios.put("http://localhost:3001/api/v1/user/changepassword",{email:userEmail,password});
+            const result=await axios.put(`${import.meta.env.VITE_BASE_URL}/api/v1/user/changepassword`,{email:userEmail,password});
             if(result.status===200){
                successToast(result.data.message);
                setTopBarProgress(100);

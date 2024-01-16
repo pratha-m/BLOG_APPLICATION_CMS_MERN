@@ -12,7 +12,7 @@ const Login = ({setTopBarProgress,successToast,errorToast,runUseEffNo,setRunUseE
     if(email && password){
       try{
          setTopBarProgress(50);
-         const result=await axios.post("http://localhost:3001/api/v1/user/login",{email,password},{withCredentials:true});
+         const result=await axios.post(`${import.meta.env.VITE_BASE_URL}/api/v1/user/login`,{email,password},{withCredentials:true});
          if(result.status===200){
            setRunUseEff(runUseEffNo+1);
            successToast(result.data.message)
