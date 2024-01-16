@@ -1,0 +1,209 @@
+header{
+    height:70px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* padding:0px 30px; */
+    position: fixed;
+    background-color: transparent;
+    box-shadow: rgba(0,0,0,0.15) 1.95px 1.95px 5.6px 1.95px;
+    z-index: 999;
+    width: 100%;
+    backdrop-filter: blur(5px);
+    padding: 0px 12px;
+    background-color:black;
+    user-select: none;
+    top: 0;
+
+}
+header>.signInBtnContainer{
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    position: relative;
+    flex: 4;
+}
+header>.signInBtnContainer>.userDropdown{
+    /* background-color: blue; */
+    height: max-content;
+    width: 170px;
+    position: absolute;
+    top: 53px;
+    right: 5px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+    overflow: hidden;
+}
+.hideUserDropdown{
+    display: none;
+}
+.showUserDropdown{
+    display: block;
+}
+header>.signInBtnContainer>.userDropdown>.eachOption{
+    height: 40px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    color: white;
+    background-color:black;
+    cursor: pointer;
+}
+header>.signInBtnContainer>.userDropdown>.eachOption>a{
+    color: white;
+    text-decoration: none;
+}
+header>.signInBtnContainer>.userDropdown>.eachOption:hover{
+    background-color: #121212;
+}
+header>.signInBtnContainer>button{
+    font-size: 1.2rem;
+    width: 130px;
+    height: 40px;
+    border-radius: 32px;
+    border: none;
+    color: white;
+    background-color: #70808a;
+    opacity: 1;
+    cursor: pointer;
+}
+header>.signInBtnContainer>.userLoggedBtn{
+    background-color: #121212;
+}
+header>.signInBtnContainer>button>a{
+    text-decoration: none;
+    color: white;
+}
+header>.logoContainer{
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 30px;
+}
+header>.logoContainer>a{
+    text-decoration: none;
+    color:white;
+    font-weight:900;
+}
+/*  #4e6bff */
+header>nav{
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: -4;
+    font-weight: bold;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+header>nav>ul{
+    display: flex;
+    justify-content: space-around;
+    list-style: none;
+}
+header>nav>ul>li{
+   padding:0px 30px;
+}
+header>nav>ul>li>a{
+    text-decoration: none;
+    color: white;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+header>nav>ul>li>a:hover{
+   color:#9caab2;
+}
+#expand-btn{
+    position: relative;
+    right: 30px;
+    font-size: 25px;
+    cursor: pointer;
+    height: 25px;
+    width: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#expand-toggler{
+    display: none;
+}
+header>.logoContainer>label>#hambergerIcon{
+    display: none;
+ }
+ header>.logoContainer>label>#crossIcon{
+    display: none;
+ }
+@media screen and (max-width:840px){
+    header>.signInBtnContainer{
+        display: none;
+    }
+    header>.logoContainer{
+        height: 77px;
+        width: 100%;
+    }
+    header>.logoContainer>label>img{
+        height: 100%;
+        position: absolute;
+    }
+    header>.logoContainer>label>#hambergerIcon{
+       display: flex;
+    }
+    header>.logoContainer>label>#crossIcon{
+       display: none;
+    }
+    header{
+        display: block;
+        padding: 0;
+    }
+    #burger-icon{
+        opacity: 1;
+    }
+    header>.logoContainer{
+        justify-content: space-between;
+        padding-left: 30px;
+    }
+    header>nav{
+        height: max-content;
+        position: relative;
+        z-index: -8;
+        display: none;
+        /* transform: translateY(-130%); */
+        /* transition:transform 2s; */
+    }
+    header>nav>ul{
+        flex-direction: column;
+        align-items: center;
+    }
+    header>nav>ul>li{
+        padding: 20px 0px;
+    }
+    #expand-toggler:checked ~ * nav{
+        /* transform: translateY(0%);    */
+        display: flex;
+        /* transition:transform 2s; */
+    }
+    #expand-toggler:checked ~ header{
+        height: max-content;
+    } 
+    #expand-toggler:checked ~ * #hambergerIcon{
+        display: none;
+    }
+    #expand-toggler:checked ~ * #crossIcon{
+        display: flex;
+    }
+    #expand-toggler:checked ~ * .signInBtnContainer{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 5px;
+    }
+    header{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+}

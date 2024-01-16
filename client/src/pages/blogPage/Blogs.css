@@ -1,0 +1,84 @@
+.blogsContainer{
+   width: 100%;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   flex-wrap: wrap;
+   padding:20px 0px;
+   gap: 20px;
+   background-color: #121212;
+}
+.blogsContainer .eachBlog{
+  background-color: black;
+  width: 320px;
+  height: 380px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+  position: relative;
+  padding: 10px;
+  color: white;
+}
+.blogsContainer .eachBlog .deleteBtn{
+  height: 30px;
+  width: 30px;
+  background-color: #121212;
+  border-radius:50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  cursor: pointer;
+}
+.blogsContainer .eachBlog .deleteBtn img{
+  height: 50%;
+  width: 50%;
+}
+.blogsContainer .eachBlog .eachBlogImage{
+  height: 60%;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+}
+.blogsContainer .eachBlog .eachBlogImage img{
+  height: 100%;
+  width: 100%;
+  border-radius: 10px;
+}
+.blogsContainer .eachBlog .eachBlogText{
+  height: 50%;
+  width: 100%;
+  padding-left: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.blogsContainer .eachBlog .eachBlogText .blogCategory{
+  padding: 8px 10px;
+  background: #121212;
+  border-radius: 20px;
+  font-size: 14px;
+  width: max-content;
+}
+.blogsContainer .eachBlog .eachBlogText h2{
+  font-size: 20px;
+  font-weight: 900;
+}
+.blogsContainer .eachBlog .eachBlogText p{
+  font-size: 15px;
+  color: rgb(120, 111, 111);
+}
+.blogsContainer .eachBlog .eachBlogText p .readMoreLink{
+   padding-left: 4px;
+   color: #4e6bff;
+   font-weight: 600;
+   font-size: 13px;
+}

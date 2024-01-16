@@ -1,0 +1,16 @@
+html{
+    scroll-behavior: smooth;
+}
+#homePage{
+   margin-top: 70px; 
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   flex-direction: column;
+   min-height: 90vh;
+}
+#homePage h1{
+    font-size: 50px;
+    font-weight: 900;
+    color: white;
+}

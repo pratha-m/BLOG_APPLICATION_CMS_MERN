@@ -1,0 +1,51 @@
+.profilePage{
+    margin-top: 70px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding-left: 10px;
+    padding-top: 40px;
+    background-color: #121212;
+    color: white;
+}
+.profilePage .myProfile,.createBlog,.myBlogs{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 20vh;
+}
+.profilePage form{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-self: self-start;
+}
+.profilePage form input,textarea{
+    width:200px ;
+    height: 30px;
+    border-radius: 40px;
+    border: none;
+    box-shadow: rgba(0,0,0,0.15) 1px 1px 2px 1px;
+    font-size: 1rem;
+    margin-left: 25px;
+    outline: none;
+    padding-left: 10px;
+    background-color:black;
+    color: white;
+}
+.profilePage form textarea{
+    height: 70px;
+    border-radius: 0px;
+    box-shadow: rgba(0,0,0,0.4) 1px 1px 2px 1px;
+}
+.profilePage form button{
+    border-radius: 20px;
+    border: none;
+    background-color: black;
+    color: white;
+    padding: 15px 20px;
+    width: max-content;
+    font-weight: bold;
+}
