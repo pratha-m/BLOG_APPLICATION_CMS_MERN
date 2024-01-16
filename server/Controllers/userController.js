@@ -16,7 +16,7 @@ const createUser=async(req,res,next)=>{
          
         res.cookie("BLOG_USER_TOKEN",generateToken(user._id),{
             httpOnly:false,
-            secure:false,
+            secure:true,
             path:"/",
             withCredentials:true,
             maxAge:3*24*60*60*1000
@@ -43,7 +43,7 @@ const loginUser=async(req,res,next)=>{
 
         res.cookie("BLOG_USER_TOKEN",token,{
             httpOnly:false,
-            secure:false,
+            secure:true,
             path:"/",
             withCredentials:true,
             maxAge:3*24*60*60*1000
