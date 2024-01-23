@@ -16,12 +16,11 @@ const createUser=async(req,res,next)=>{
          
         res.cookie("BLOG_USER_TOKEN",generateToken(user._id),{
             httpOnly:false,
-            secure:true,
             path:"/",
-            domain:".blogii.netlify.app",
             withCredentials:true,
+            sameSite: 'None',   
+            secure:true,
             maxAge:3*24*60*60*1000,
-            sameSite: 'None'
         })
         res.status(200).send({success:true,message:"User created",user:user})
     }
@@ -48,11 +47,9 @@ const loginUser=async(req,res,next)=>{
             path:"/",
             withCredentials:true,
             sameSite: 'None',   
-               secure:true,
+            secure:true,
+            maxAge:3*24*60*60*1000,
         })
-        // domain:"netlify.app",
-        // maxAge:3*24*60*60*1000,
-        // sameSite: 'None'
     
         res.status(200).send({success:true,message:"Logged in",user:{name:user.name,email:user.email,_id:user._id}});
     }
