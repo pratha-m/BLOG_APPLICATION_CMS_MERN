@@ -45,13 +45,13 @@ const loginUser=async(req,res,next)=>{
 
         res.cookie("BLOG_USER_TOKEN",token,{
             httpOnly:false,
-            secure:true,
             path:"/",
-            domain:".netlify.app",
             withCredentials:true,
-            maxAge:3*24*60*60*1000,
-            sameSite: 'None'
         })
+        // secure:true,
+        // domain:"netlify.app",
+        // maxAge:3*24*60*60*1000,
+        // sameSite: 'None'
     
         res.status(200).send({success:true,message:"Logged in",user:{name:user.name,email:user.email,_id:user._id}});
     }
