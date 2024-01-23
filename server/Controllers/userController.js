@@ -18,7 +18,7 @@ const createUser=async(req,res,next)=>{
             httpOnly:false,
             secure:true,
             path:"/",
-            domain:"blogii.netlify.app",
+            domain:".blogii.netlify.app",
             withCredentials:true,
             maxAge:3*24*60*60*1000,
             sameSite: 'None'
@@ -47,7 +47,7 @@ const loginUser=async(req,res,next)=>{
             httpOnly:false,
             secure:true,
             path:"/",
-            domain:"blogii.netlify.app",
+            domain:".blogii.netlify.app",
             withCredentials:true,
             maxAge:3*24*60*60*1000,
             sameSite: 'None'
