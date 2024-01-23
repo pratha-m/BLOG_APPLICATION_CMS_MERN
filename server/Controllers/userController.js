@@ -47,9 +47,9 @@ const loginUser=async(req,res,next)=>{
             httpOnly:false,
             path:"/",
             withCredentials:true,
-            sameSite: 'None'   
+            sameSite: 'None',   
+               secure:true,
         })
-        // secure:true,
         // domain:"netlify.app",
         // maxAge:3*24*60*60*1000,
         // sameSite: 'None'
