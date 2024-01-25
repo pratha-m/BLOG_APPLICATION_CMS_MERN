@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import {Link,useLocation, useNavigate} from "react-router-dom";
 import "../css/components/header.css";
+import axios from 'axios';
 
 const Header = ({userStatus,setUserStatus,userData,runUseEffNo,setRunUseEff}) => {
   const navigate=useNavigate();
@@ -11,12 +12,23 @@ const Header = ({userStatus,setUserStatus,userData,runUseEffNo,setRunUseEff}) =>
     setUrlPath(location.pathname);
   },[location.pathname]);
   
-  const logout=()=>{
-    document.cookie="BLOG_USER_TOKEN=;expires=Thu,01 Jan 1970 00:00:00 UTC; path=/;";
-    setUserStatus({...userStatus,isLoggedIn:false})
-    setRunUseEff(runUseEffNo+1);
-    navigate("/");
+  const logout=async()=>{
+    try{
+      setUserStatus({...userStatus,isFetching:true});
+      const result=await axios.post(`${import.meta.env.VITE_BASE_URL}/api/v1/user/logout`,{},{withCredentials:true});
+      if(result.status===200){
+        setUserStatus({...userStatus,isLoggedIn:false})
+        setRunUseEff(runUseEffNo+1);
+        navigate("/");
+      }
+    }
+    catch(error){
+      if(error.response) console.log(error.response.data.message);
+      else console.log("Error in Logout"); 
+    } 
   }
+  // console.log(document.cookie)
+    // document.cookie="BLOG_USER_TOKEN=;expires=Thu,01 Jan 1970 00:00:00 UTC; path=/;";
   const toggleDropdown=()=>{
      let userDropdown=document.getElementById("userDropdown");
      if(userDropdown.classList.contains("hideUserDropdown")){

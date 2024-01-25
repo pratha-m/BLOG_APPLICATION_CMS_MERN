@@ -149,4 +149,16 @@ const changePassword=async(req,res,next)=>{
         res.status(500).send({success:true,message:"Error in changing Password",error:error.message});
     }
 }
-export {createUser,loginUser,getUserProfile,updateUserProfile,checkOtp,changePassword,userExists};
+const logout=async(req,res)=>{
+    try{
+        
+
+        res.cookie("BLOG_USER_TOKEN","",{expires:new Date(0)});
+
+        res.status(200).send({success:true,message:"Logout Successfully"});
+    }
+    catch(error){
+        res.status(500).send({success:true,message:"Error in Logout User",error:error.message});
+    }
+}
+export {createUser,loginUser,getUserProfile,updateUserProfile,checkOtp,changePassword,userExists,logout};

@@ -13,7 +13,7 @@ const port=process.env.PORT || 3001;
 
 app.use(cors({
     origin:["http://localhost:5173","https://blogii.netlify.app"],
-    credentials: true
+    credentials: true,
 }));
 
 app.use(cookieParser());

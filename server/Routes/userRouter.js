@@ -1,5 +1,5 @@
 import express from "express";
-import {getUserProfile, createUser, loginUser,updateUserProfile, checkOtp, changePassword ,userExists} from "../Controllers/userController.js";
+import {getUserProfile, createUser, loginUser,updateUserProfile, checkOtp, changePassword ,userExists, logout} from "../Controllers/userController.js";
 import { isAuthenticated } from "../Middlewares/auth.js";
 import { sendEmail } from "../Features/sendEmail.js";
 
@@ -20,5 +20,7 @@ userRouter.post("/exists",userExists);
 userRouter.post("/checkotp",checkOtp);
 
 userRouter.put("/changepassword",changePassword);
+
+userRouter.post("/logout",isAuthenticated,logout);
 
 export default userRouter;
