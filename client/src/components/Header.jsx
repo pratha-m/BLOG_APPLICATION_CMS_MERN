@@ -15,8 +15,11 @@ const Header = ({userStatus,setUserStatus,userData,runUseEffNo,setRunUseEff}) =>
   const logout=async()=>{
     try{
       setUserStatus({...userStatus,isFetching:true});
-      const result=await axios.post(`${import.meta.env.VITE_BASE_URL}/api/v1/user/logout`,{},{withCredentials:true});
+      const result=await axios.post(`${import.meta.env.VITE_BASE_URL}/api/v1/user/logout`,{},{
+        withCredentials:true
+      });
       if(result.status===200){
+        console.log(result);
         setUserStatus({...userStatus,isLoggedIn:false})
         setRunUseEff(runUseEffNo+1);
         navigate("/");
