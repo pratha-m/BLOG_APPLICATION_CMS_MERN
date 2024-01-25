@@ -81,7 +81,7 @@ function App() {
   return (
     <div>
     <Router>
-      <Header userStatus={userStatus} setUserStatus={setUserStatus} userData={userData} runUseEffNo={runUseEffNo} setRunUseEff={setRunUseEff}/>
+      <Header userStatus={userStatus} setUserStatus={setUserStatus} userData={userData} runUseEffNo={runUseEffNo} setRunUseEff={setRunUseEff} successToast={successToast} errorToast={errorToast}/>
           <Routes>
             <Route exact path='/login' element={<Login setTopBarProgress={setTopBarProgress} successToast={successToast} errorToast={errorToast} runUseEffNo={runUseEffNo} setRunUseEff={setRunUseEff}/>}/>
             <Route exact path='/signup' element={<Signup setTopBarProgress={setTopBarProgress} successToast={successToast} errorToast={errorToast} runUseEffNo={runUseEffNo} setRunUseEff={setRunUseEff}/>}/>

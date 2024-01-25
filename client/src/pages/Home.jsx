@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "../css/pages/home.css";
 import Blogs from "./blogPage/Blogs";
 import axios from "axios";
+import Loader from "../components/Loader";
 // import TextSlider from "../components/textSlider/TextSlider";
 
 const Home = () => {
@@ -38,7 +39,7 @@ const Home = () => {
     <div id='homePage'>
         <h1>All Blogs</h1>
         {/* <TextSlider blogsData={blogsData} setBlogsData={setBlogsData}/> */}
-        <Blogs blogsData={blogsData}/>
+        {blogsData.isLoading?"Loading...":<Blogs blogsData={blogsData}/>}
     </div>
   )
 }

@@ -2,8 +2,9 @@ import { useEffect, useState } from 'react'
 import {Link,useLocation, useNavigate} from "react-router-dom";
 import "../css/components/header.css";
 import axios from 'axios';
+import Loader from './Loader';
 
-const Header = ({userStatus,setUserStatus,userData,runUseEffNo,setRunUseEff}) => {
+const Header = ({userStatus,setUserStatus,userData,runUseEffNo,setRunUseEff,successToast,errorToast}) => {
   const navigate=useNavigate();
   const location=useLocation();
   const [urlPath,setUrlPath]=useState(location.pathname);
@@ -19,19 +20,18 @@ const Header = ({userStatus,setUserStatus,userData,runUseEffNo,setRunUseEff}) =>
         withCredentials:true
       });
       if(result.status===200){
-        console.log(result);
-        setUserStatus({...userStatus,isLoggedIn:false})
+        setUserStatus({...userStatus,isLoggedIn:false,isFetching:false})
+        successToast(result.data.message)
         setRunUseEff(runUseEffNo+1);
         navigate("/");
       }
     }
     catch(error){
-      if(error.response) console.log(error.response.data.message);
-      else console.log("Error in Logout"); 
+      setUserStatus({...userStatus,isFetching:false})
+      if(error.response) errorToast(error.response.data.message)  
+      else errorToast("Erorr in Logout"); 
     } 
   }
-  // console.log(document.cookie)
-    // document.cookie="BLOG_USER_TOKEN=;expires=Thu,01 Jan 1970 00:00:00 UTC; path=/;";
   const toggleDropdown=()=>{
      let userDropdown=document.getElementById("userDropdown");
      if(userDropdown.classList.contains("hideUserDropdown")){
@@ -73,7 +73,11 @@ const Header = ({userStatus,setUserStatus,userData,runUseEffNo,setRunUseEff}) =>
              <div className="userDropdown hideUserDropdown" id='userDropdown'>
                <div className="eachOption" onClick={()=>{navigate("/profile")}}>Profile</div>
                {userStatus.isAdmin && <div className="eachOption"><Link to="/admin">Admin</Link></div>}
-               <div className="eachOption" onClick={()=>logout()}>Logout</div>
+               <div className="eachOption" onClick={
+                userStatus.isFetching?()=>{}:()=>{logout()}
+               }>
+               {userStatus.isFetching?"Loading...":"Logout"} 
+               </div>
              </div>
             </>
             ):

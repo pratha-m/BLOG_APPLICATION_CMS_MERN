@@ -1,4 +1,4 @@
-import { generateToken } from "../Features/feature.js";
+import { createUserCookie, deleteUserCookie, generateToken } from "../Features/feature.js";
 import User from "../Models/userModel.js";
 import Otp from "../Models/otpModel.js";
 
@@ -13,19 +13,15 @@ const createUser=async(req,res,next)=>{
         if(user) return res.status(500).send({success:false,message:"User Already Exists"});
      
         user=await User.create({name,email,password});
+
+        const token=generateToken(user._id);
+
+        createUserCookie(res,token);
          
-        res.cookie("BLOG_USER_TOKEN",generateToken(user._id),{
-            httpOnly:false,
-            path:"/",
-            withCredentials:true,
-            sameSite: 'None',   
-            secure:true,
-            maxAge:3*24*60*60*1000,
-        })
         res.status(200).send({success:true,message:"User created",user:user})
     }
     catch(error){
-        res.status(500).send({success:false,message:error.message,error:error.message});
+        res.status(500).send({success:false,message:"Error in creating user",error:error.message});
     }
 }
 const loginUser=async(req,res,next)=>{
@@ -42,19 +38,12 @@ const loginUser=async(req,res,next)=>{
 
         const token=generateToken(user._id);
 
-        res.cookie("BLOG_USER_TOKEN",token,{
-            httpOnly:false,
-            path:"/",
-            withCredentials:true,
-            sameSite: 'None',   
-            secure:true,
-            maxAge:3*24*60*60*1000,
-        })
+        createUserCookie(res,token);
     
         res.status(200).send({success:true,message:"Logged in",user:{name:user.name,email:user.email,_id:user._id}});
     }
     catch(error){
-        res.status(500).send({success:false,message:error.message,error:error.message});
+        res.status(500).send({success:false,message:"Erorr in Login User",error:error.message});
     }
 }
 const getUserProfile=async(req,res)=>{
@@ -62,14 +51,15 @@ const getUserProfile=async(req,res)=>{
         const user=await User.findById(req.userId).select("-password");
 
         if(!user){
-            res.cookie("BLOG_USER_TOKEN","",{expires:new Date(0)});
+            deleteUserCookie(res);
+            
             return res.status(500).send({success:false,message:"User Not Found"});
         } 
 
         res.status(200).send({success:true,message:"Cookie Found",user:user})
     }
     catch(error){
-        res.status(500).send({success:false,message:error.message,error:error.message});
+        res.status(500).send({success:false,message:"Erorr in getting User Profile",error:error.message});
     }
 }
 const updateUserProfile=async(req,res)=>{
@@ -78,7 +68,7 @@ const updateUserProfile=async(req,res)=>{
         const user=await User.findById(req.userId);
     
         if(!user){
-            res.cookie("BLOG_USER_TOKEN","",{expires:new Date(0)});
+            deleteUserCookie(res);
     
             return res.status(401).send({success:false,message:"Account Not Found"});
         } 
@@ -98,7 +88,7 @@ const updateUserProfile=async(req,res)=>{
         }});
     }
     catch(error){
-        res.status(500).send({success:false,message:error.message,error:error.message});
+        res.status(500).send({success:false,message:"Erorr in Updating User Profile",error:error.message});
     }
 }
 const userExists=async(req,res)=>{
@@ -112,7 +102,7 @@ const userExists=async(req,res)=>{
         res.status(200).send({success:true,message:"User Exists",user:user})
     }
     catch(error){
-        return res.status(500).send({success:false,message:error.message,error:error.message})
+        return res.status(500).send({success:false,message:"Erorr in finding user",error:error.message})
     }
 }
 const checkOtp=async(req,res,next)=>{
@@ -128,7 +118,7 @@ const checkOtp=async(req,res,next)=>{
         res.status(200).send({success:true,message:"Otp is correct"});
     }
     catch(error){
-        res.status(500).send({success:false,message:error.message,error:error.message});   
+        res.status(500).send({success:false,message:"Erorr in verifying otp",error:error.message});   
     }
 }
 const changePassword=async(req,res,next)=>{
@@ -151,15 +141,7 @@ const changePassword=async(req,res,next)=>{
 }
 const logout=async(req,res)=>{
     try{
-        res.cookie("BLOG_USER_TOKEN","",{
-            expires:new Date(0),
-            httpOnly:false,
-            path:"/",
-            withCredentials:true,
-            sameSite: 'None',   
-            secure:true,
-            maxAge:3*24*60*60*1000,
-        });
+        deleteUserCookie(res);
 
         res.status(200).send({success:true,message:"Logout Successfully"});
     }
