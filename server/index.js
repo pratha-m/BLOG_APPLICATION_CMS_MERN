@@ -10,9 +10,9 @@ import postRouter from "./Routes/postRouter.js";
 
 const app=express();
 const port=process.env.PORT || 3001;
-
+// ["http://localhost:5173","https://blogii.netlify.app","https://blog-application-cms-frontend.vercel.app"]
 app.use(cors({
-    origin:["http://localhost:5173","https://blogii.netlify.app","https://blog-application-cms-frontend.vercel.app"],
+    origin:"*",
     credentials: true,
 }));
 
