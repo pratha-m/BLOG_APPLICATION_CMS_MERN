@@ -12,7 +12,7 @@ const app=express();
 const port=process.env.PORT || 3001;
 
 app.use(cors({
-    origin:["http://localhost:5173","https://blogii.netlify.app"],
+    origin:["http://localhost:5173","https://blogii.netlify.app","https://blog-application-cms-frontend.vercel.app/"],
     credentials: true,
 }));
 
