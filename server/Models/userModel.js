@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+
 const blogSchema=mongoose.Schema({
     blog_title:{type:String,required:true},
     blog_description:{type:String,required:true},
@@ -7,17 +8,23 @@ const blogSchema=mongoose.Schema({
 })
 const userSchema=mongoose.Schema({
     name:{
-        type:String
+        type:String,
+        required:true
     },
     email:{
-        type:String
+        type:String,
+        required:true
     },
     password:{
-        type:String
+        type:String,
+        required:true
+    },
+    verified_otp_time:{
+        type:Number,
+        required:true
     },
     blogs:[blogSchema]
 })
-
 const User=mongoose.model("user",userSchema);
 
 export default User;

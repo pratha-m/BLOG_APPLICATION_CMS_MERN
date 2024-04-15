@@ -1,4 +1,4 @@
-import { createUserCookie, deleteUserCookie, generateToken } from "../Features/feature.js";
+import { createUserCookie, deleteUserCookie, generateToken, milliSecToMinute, minuteToMilliSec } from "../Features/feature.js";
 import User from "../Models/userModel.js";
 import Otp from "../Models/otpModel.js";
 
@@ -11,8 +11,15 @@ const createUser=async(req,res,next)=>{
         let user=await User.findOne({email});
      
         if(user) return res.status(500).send({success:false,message:"User Already Exists"});
-     
-        user=await User.create({name,email,password});
+
+        const timeToStore=Date.now()-minuteToMilliSec(process.env.OTP_EXPIRE_TIME);
+
+        user=await User.create({
+            name,
+            email,
+            password,
+            verified_otp_time:timeToStore
+        });
 
         const token=generateToken(user._id);
 
@@ -39,7 +46,7 @@ const loginUser=async(req,res,next)=>{
         const token=generateToken(user._id);
 
         createUserCookie(res,token);
-    
+
         res.status(200).send({success:true,message:"Logged in",user:{name:user.name,email:user.email,_id:user._id}});
     }
     catch(error){
@@ -64,7 +71,6 @@ const getUserProfile=async(req,res)=>{
 }
 const updateUserProfile=async(req,res)=>{
     try{
-
         const user=await User.findById(req.userId);
     
         if(!user){
@@ -110,11 +116,16 @@ const checkOtp=async(req,res,next)=>{
         const {otp,userId}=req.body;
     
         const otpFind=await Otp.findById(userId);
+        const user=await User.findById(userId);
     
         if(!otpFind) return res.status(401).send({success:false,message:"Otp is Expired"});;
     
         if(otpFind.otpvalue!==otp) return res.status(401).send({success:false,message:"Wrong Otp"})
-    
+        
+        user.verified_otp_time=Date.now();
+
+        await user.save();
+
         res.status(200).send({success:true,message:"Otp is correct"});
     }
     catch(error){
@@ -126,8 +137,12 @@ const changePassword=async(req,res,next)=>{
         const {email,password}=req.body;
         
         const user=await User.findOne({email});
-    
+        
         if(!user) return res.status(401).send({success:false,message:"User does not Exists"});
+        
+        const diffTimeMinutes=milliSecToMinute(Date.now()-user.verified_otp_time);
+        
+        if(diffTimeMinutes>process.env.OTP_EXPIRE_TIME) return res.status(401).send({success:false,message:"Your Sesssion is expired"});
     
         user.password=password || user.password;
     

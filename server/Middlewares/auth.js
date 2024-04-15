@@ -7,7 +7,7 @@ const isAuthenticated=(req,res,next)=>{
 
     jwt.verify(token,process.env.JWT_SECRET,async function(error,decoded){
         if(error){
-            res.cookie("MAPIT_USER_TOKEN","",{expires:new Date(0)});
+            res.cookie(process.env.COOKIE_NAME,"",{expires:new Date(0)});
 
             return res.status(500).send({success:false,message:"Wrong Cookie"});
         }

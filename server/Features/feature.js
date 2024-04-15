@@ -13,7 +13,7 @@ const otpGenerator=()=>{
     return otp;
 }
 const deleteUserCookie=(res)=>{
-    res.clearCookie("BLOG_USER_TOKEN",{
+    res.clearCookie(process.env.COOKIE_NAME,{
         httpOnly:false,
         path:"/",
         withCredentials:true,
@@ -22,7 +22,7 @@ const deleteUserCookie=(res)=>{
     });
 }
 const createUserCookie=(res,token)=>{
-    res.cookie("BLOG_USER_TOKEN",token,{
+    res.cookie(process.env.COOKIE_NAME,token,{
         httpOnly:false,
         path:"/",
         withCredentials:true,
@@ -31,5 +31,11 @@ const createUserCookie=(res,token)=>{
         maxAge:3*24*60*60*1000,
     })
 }
+const milliSecToMinute=(milliSeconds)=>{
+    return (milliSeconds/1000)/60;
+}
+const minuteToMilliSec=(minute)=>{
+    return minute*60*1000;
+}
 
-export {generateToken,otpGenerator,deleteUserCookie,createUserCookie};
+export {generateToken,otpGenerator,deleteUserCookie,createUserCookie,milliSecToMinute,minuteToMilliSec};
