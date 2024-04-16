@@ -13,7 +13,7 @@ const port=process.env.PORT || 3001;
 
 app.use(helmet())
 app.use(cors({
-    origin:["http://localhost:5173","https://blogii.netlify.app"],
+    origin:process.env.AVAILABLE_ORIGINS.split(", "),
     credentials: true,
 }));
 
